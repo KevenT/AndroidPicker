@@ -53,6 +53,7 @@ public class NestActivity extends BaseActivity {
                 textView.setText(String.format(Locale.PRC, "index=%d,item=%s", index, strings[index]));
             }
         });
+//        wheelView.setWidgeEnable(false);
 
         LinearLayout layout = findView(R.id.wheelview_container);
         final CarNumberPicker carNumberPicker = new CarNumberPicker(this);

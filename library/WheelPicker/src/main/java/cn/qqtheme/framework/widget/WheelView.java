@@ -63,6 +63,7 @@ public class WheelView extends View {
     private static final int VELOCITY_FLING = 5;//修改这个值可以改变滑行速度
     private static final float SCALE_CONTENT = 0.8F;//非中间文字用此控制高度，压扁形成3D错觉
 
+    private boolean isWidgeEnable= true;
     private MessageHandler handler;
     private GestureDetector gestureDetector;
     private OnItemSelectListener onItemSelectListener;
@@ -80,9 +81,12 @@ public class WheelView extends View {
     private int textSkewXOffset = 0;//文字倾斜度
     private int textSize = TEXT_SIZE;//文字大小，单位为sp
     private float itemHeight;//每行高度
-    private Typeface typeface = Typeface.DEFAULT;//字体样式
+    private Typeface typefaceOuter = Typeface.DEFAULT;//字体样式
+    private Typeface typefaceCenter = Typeface.DEFAULT;//字体样式
     private int textColorOuter = TEXT_COLOR_NORMAL;//未选项文字颜色
     private int textColorCenter = TEXT_COLOR_FOCUS;//选中项文字颜色
+    private int textAlphaOuter = 255;//未选项文字
+    private int textAlphaCenter = 255;//选中项文字
     private DividerConfig dividerConfig = new DividerConfig();
     private float lineSpaceMultiplier = LINE_SPACE_MULTIPLIER;//条目间距倍数，可用来设置上下间距
     private int textPadding = TEXT_PADDING;//文字的左右边距,单位为px
@@ -129,6 +133,14 @@ public class WheelView extends View {
         }
         judgeLineSpace();
         initView(context);
+    }
+
+    public boolean isWidgeEnable() {
+        return isWidgeEnable;
+    }
+
+    public void setWidgeEnable(boolean widgeEnable) {
+        isWidgeEnable = widgeEnable;
     }
 
     /**
@@ -266,10 +278,35 @@ public class WheelView extends View {
         paintCenterText.setColor(color);
     }
 
+    public void setTextAlpha( int alphaOuter,int alphaCenter) {
+        this.textAlphaOuter = alphaOuter;
+        this.textAlphaCenter = alphaCenter;
+        paintOuterText.setAlpha(alphaOuter);
+        paintCenterText.setAlpha(alphaCenter);
+    }
+
+    public void setTextAlpha( int alpha) {
+        this.textAlphaOuter = alpha;
+        this.textAlphaCenter = alpha;
+        paintOuterText.setAlpha(alpha);
+        paintCenterText.setAlpha(alpha);
+    }
+
+    public final void setTypeface(Typeface fontOuter,Typeface fontCenter) {
+        typefaceOuter = fontOuter;
+        typefaceCenter = fontCenter;
+        paintOuterText.setTypeface(typefaceOuter);
+        paintCenterText.setTypeface(typefaceCenter);
+    }
+
     public final void setTypeface(Typeface font) {
-        typeface = font;
-        paintOuterText.setTypeface(typeface);
-        paintCenterText.setTypeface(typeface);
+//        typeface = font;
+//        paintOuterText.setTypeface(typeface);
+//        paintCenterText.setTypeface(typeface);
+        typefaceOuter = font;
+        typefaceCenter = font;
+        paintOuterText.setTypeface(font);
+        paintCenterText.setTypeface(font);
     }
 
     public final void setTextSize(float size) {
@@ -368,13 +405,15 @@ public class WheelView extends View {
         paintOuterText = new Paint();
         paintOuterText.setAntiAlias(true);
         paintOuterText.setColor(textColorOuter);
-        paintOuterText.setTypeface(typeface);
+        paintOuterText.setAlpha(textAlphaOuter);
+        paintOuterText.setTypeface(typefaceOuter);
         paintOuterText.setTextSize(textSize);
         paintCenterText = new Paint();
         paintCenterText.setAntiAlias(true);
         paintCenterText.setColor(textColorCenter);
+        paintOuterText.setAlpha(textAlphaCenter);
         paintCenterText.setTextScaleX(1.0F);
-        paintCenterText.setTypeface(typeface);
+        paintCenterText.setTypeface(typefaceCenter);
         paintCenterText.setTextSize(textSize);
         paintIndicator = new Paint();
         paintIndicator.setAntiAlias(true);
@@ -758,6 +797,9 @@ public class WheelView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (!isWidgeEnable){
+            return false;
+        }
         boolean eventConsumed = gestureDetector.onTouchEvent(event);
         ViewParent parent = getParent();
         switch (event.getAction()) {
