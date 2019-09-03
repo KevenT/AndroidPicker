@@ -5,7 +5,8 @@ ext {
 }
 
 android {
-
+//    compileSdkVersion 27
+//    buildToolsVersion "27.0.3"
     buildTypes {
         release {
             //是否zip优化
