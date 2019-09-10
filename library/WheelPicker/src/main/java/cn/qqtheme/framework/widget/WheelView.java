@@ -141,6 +141,7 @@ public class WheelView extends View {
 
     public void setWidgeEnable(boolean widgeEnable) {
         isWidgeEnable = widgeEnable;
+        invalidate();
     }
 
     /**
@@ -411,7 +412,7 @@ public class WheelView extends View {
         paintCenterText = new Paint();
         paintCenterText.setAntiAlias(true);
         paintCenterText.setColor(textColorCenter);
-        paintOuterText.setAlpha(textAlphaCenter);
+        paintCenterText.setAlpha(textAlphaCenter);
         paintCenterText.setTextScaleX(1.0F);
         paintCenterText.setTypeface(typefaceCenter);
         paintCenterText.setTextSize(textSize);
