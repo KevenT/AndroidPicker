@@ -201,6 +201,8 @@ public class MainActivity extends BaseActivity {
         int currentMinute = Calendar.getInstance().get(Calendar.MINUTE);
         picker.setSelectedItem(currentHour, currentMinute);
         picker.setTopLineVisible(false);
+//        picker.setLabelViewTextSize(33);
+//        picker.setTopLineVisible(true);
         picker.setTextPadding(ConvertUtils.toPx(this, 15));
         picker.setOnTimePickListener(new TimePicker.OnTimePickListener() {
             @Override

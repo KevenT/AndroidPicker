@@ -125,6 +125,10 @@ public class DateTimePicker extends WheelPicker {
         this.timeMode = timeMode;
     }
 
+    public void setLabelViewTextSize(int textSize) {
+        this.textSize = textSize;
+    }
+
     /**
      * 滚动时是否重置下一级的索引
      */
