@@ -70,7 +70,8 @@ public class DateTimePicker extends WheelPicker {
     private ArrayList<String> hours = new ArrayList<>();
     private ArrayList<String> minutes = new ArrayList<>();
     private String yearLabel = "年", monthLabel = "月", dayLabel = "日";
-    private String hourLabel = "时", minuteLabel = "分";
+//    private String hourLabel = "时", minuteLabel = "分";
+    private String hourLabel = "h", minuteLabel = "min";
     private int selectedYearIndex = 0, selectedMonthIndex = 0, selectedDayIndex = 0;
     private String selectedHour = "", selectedMinute = "";
     private OnWheelListener onWheelListener;
